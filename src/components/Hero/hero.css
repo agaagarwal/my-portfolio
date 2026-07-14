@@ -1,0 +1,265 @@
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes bobY {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(10px); }
+}
+/* one broad sine arc; rotation follows the path tangent so the nose tracks the flight */
+@keyframes flyAcross {
+  0.00%   { transform: translate(-16.00vw, 0.00px) rotate(14.00deg) scale(1.000); opacity: 0; }
+  3.85%   { transform: translate(-10.92vw, 24.82px) rotate(13.09deg) scale(1.018); opacity: 1; }
+  7.69%   { transform: translate(-5.85vw, 46.42px) rotate(10.48deg) scale(1.033); }
+  11.54%  { transform: translate(-0.77vw, 61.98px) rotate(6.51deg) scale(1.044); }
+  15.38%  { transform: translate(4.31vw, 69.49px) rotate(1.69deg) scale(1.050); }
+  19.23%  { transform: translate(9.38vw, 67.97px) rotate(-3.35deg) scale(1.049); }
+  23.08%  { transform: translate(14.46vw, 57.61px) rotate(-7.95deg) scale(1.041); }
+  26.92%  { transform: translate(19.54vw, 39.76px) rotate(-11.52deg) scale(1.028); }
+  30.77%  { transform: translate(24.62vw, 16.75px) rotate(-13.59deg) scale(1.012); }
+  34.62%  { transform: translate(29.69vw, -8.44px) rotate(-13.90deg) scale(0.994); }
+  38.46%  { transform: translate(34.77vw, -32.53px) rotate(-12.40deg) scale(0.977); }
+  42.31%  { transform: translate(39.85vw, -52.40px) rotate(-9.28deg) scale(0.963); }
+  46.15%  { transform: translate(44.92vw, -65.45px) rotate(-4.96deg) scale(0.953); }
+  50.00%  { transform: translate(50.00vw, -70.00px) rotate(0.00deg) scale(0.950); }
+  53.85%  { transform: translate(55.08vw, -65.45px) rotate(4.96deg) scale(0.953); }
+  57.69%  { transform: translate(60.15vw, -52.40px) rotate(9.28deg) scale(0.963); }
+  61.54%  { transform: translate(65.23vw, -32.53px) rotate(12.40deg) scale(0.977); }
+  65.38%  { transform: translate(70.31vw, -8.44px) rotate(13.90deg) scale(0.994); }
+  69.23%  { transform: translate(75.38vw, 16.75px) rotate(13.59deg) scale(1.012); }
+  73.08%  { transform: translate(80.46vw, 39.76px) rotate(11.52deg) scale(1.028); }
+  76.92%  { transform: translate(85.54vw, 57.61px) rotate(7.95deg) scale(1.041); }
+  80.77%  { transform: translate(90.62vw, 67.97px) rotate(3.35deg) scale(1.049); }
+  84.62%  { transform: translate(95.69vw, 69.49px) rotate(-1.69deg) scale(1.050); }
+  88.46%  { transform: translate(100.77vw, 61.98px) rotate(-6.51deg) scale(1.044); }
+  92.31%  { transform: translate(105.85vw, 46.42px) rotate(-10.48deg) scale(1.033); }
+  96.15%  { transform: translate(110.92vw, 24.82px) rotate(-13.09deg) scale(1.018); opacity: 1; }
+  100.00% { transform: translate(116.00vw, 0.00px) rotate(-14.00deg) scale(1.000); opacity: 0; }
+}
+@keyframes flyBannerRTL {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-182vw); }
+}
+@keyframes bannerWaveSeg {
+  0%   { transform: translateY(0); }
+  25%  { transform: translateY(-8px); }
+  50%  { transform: translateY(0); }
+  75%  { transform: translateY(8px); }
+  100% { transform: translateY(0); }
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 700px;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,20,40,0.06) 0%, rgba(10,20,40,0) 30%, rgba(10,20,40,0.12) 100%);
+}
+
+.hero-nav {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(8px, 1.5vw, 14px);
+  padding: clamp(16px, 4vw, 32px) 24px 0;
+}
+.pill {
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #1a2233;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 10px 22px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.pill:hover { background: rgba(255, 255, 255, 0.8); }
+
+
+.banner {
+  position: absolute;
+  left: 100%;
+  top: 160px;
+  width: 78vw;
+  min-width: 820px;
+  aspect-ratio: 5905 / 270;
+  display: flex;
+  align-items: stretch;
+  animation: flyBannerRTL 28s linear infinite;
+  z-index: 4;
+  pointer-events: none;
+}
+.banner-plane {
+  width: 14.394%;
+  height: 100%;
+  flex: 0 0 auto;
+  display: block;
+}
+.banner-fabric {
+  width: 85.606%;
+  height: 100%;
+  flex: 0 0 auto;
+  display: flex;
+  overflow: visible;
+}
+.banner-seg {
+  flex: 1 1 0;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  border-radius: 3px;
+  animation: bannerWaveSeg 2.4s ease-in-out infinite;
+}
+.banner-seg img {
+  position: absolute;
+  top: -6px;
+  height: calc(100% + 12px);
+}
+
+.cursive-word {
+  font-family: 'Seaweed Script', cursive;
+  font-size: clamp(120px, 22vw, 300px);
+  color: #1E325A1A;
+  white-space: nowrap;
+  line-height: 1;
+  transform: rotate(-6.5deg);
+  position: absolute;
+  top: 323px;
+  left: 132px;
+  z-index: 1;
+  display: none; /* hidden in the final design; set to block to bring it back */
+}
+
+.hero-content {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 65px;
+  max-width: 900px;
+  margin: 0 auto;
+  top: 272px;
+}
+.headings-scroll {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.headings-scroll::-webkit-scrollbar { display: none; }
+.headings {
+  display: flex;
+  gap: clamp(8px, 2.5vw, 34px);
+  flex-wrap: nowrap;
+  width: max-content;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+.heading {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: clamp(10px, 1.2vw, 18px);
+  letter-spacing: 0.03em;
+  color: rgba(26, 34, 51, 0.55);
+  font-weight: 500;
+  transition: color 0.25s;
+}
+.heading:hover { color: #1a2233; }
+.heading.is-active {
+  color: #1a2233;
+  font-weight: 700;
+}
+.hero-desc {
+  margin: 0;
+  font-size: clamp(24px, 4.5vw, 36px);
+  line-height: 1.4;
+  color: #1a2233;
+  font-weight: 600;
+  font-style: italic;
+  max-width: 661px;
+  animation: fadeInUp 0.7s ease-out both;
+  animation-delay: 0.35s;
+}
+.working-at {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: clamp(16px, 2vw, 24px);
+  color: #1a2233;
+  font-weight: 400;
+  animation: fadeInUp 0.7s ease-out both;
+  animation-delay: 0.5s;
+}
+.working-at img {
+  display: block;
+  width: 170px;
+}
+
+.scroll-cue {
+  position: absolute;
+  bottom: 118px;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.scroll-mouse {
+  animation: bobY 2.2s ease-in-out infinite;
+  width: 26px;
+  height: 40px;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.scroll-wheel {
+  width: 3px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 2px;
+}
+.scroll-label {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 860px) {
+  .hero-content {
+    gap: 48px;
+    padding: 0 16px;
+  }
+}

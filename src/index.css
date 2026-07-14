@@ -1,0 +1,13 @@
+* { box-sizing: border-box; }
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Figtree', sans-serif;
+  background: #0b1220;
+}
+
+::selection { background: rgba(255, 255, 255, 0.25); }
+
+main { background: #ffffff; }
