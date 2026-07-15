@@ -7,11 +7,7 @@ interface Props {
 
 export default function ProjectCard({ project, index }: Props) {
   return (
-    <article
-      className="project-card"
-      /* cards stick at incrementing offsets so each piles on top of the previous while scrolling */
-      style={{ top: 24 + index * 24, zIndex: index + 1 }}
-    >
+    <article className="project-card">
       <div className="project-info">
         <div className="project-meta-head">
           <span className="project-index">{String(index + 1).padStart(2, '0')}</span>
