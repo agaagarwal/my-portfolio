@@ -78,6 +78,17 @@ export default function Hero() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // auto-advance the headings, giving each description reading time (~200 wpm)
+  // plus a settle-in buffer; a manual click resets the timer via activeIndex
+  useEffect(() => {
+    const words = DESCRIPTIONS[activeIndex].trim().split(/\s+/).length;
+    const readMs = Math.max(4000, (words / (200 / 60)) * 1000 + 1500);
+    const timer = setTimeout(() => {
+      setActiveIndex((i) => (i + 1) % HEADING_LABELS.length);
+    }, readMs);
+    return () => clearTimeout(timer);
+  }, [activeIndex]);
+
   // remember the nav's natural height so its slot keeps that space once it pins
   useEffect(() => {
     const measure = () => {
