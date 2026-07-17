@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { HEADING_LABELS, DESCRIPTIONS, LINKS } from '../../data/content';
 import { useTheme } from '../../context/ThemeContext';
 import PlaneFlock from './PlaneFlock';
@@ -68,12 +68,24 @@ export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrolled, setScrolled] = useState(false);
   const { theme } = useTheme();
+  const navRef = useRef<HTMLElement | null>(null);
+  const [navHeight, setNavHeight] = useState<number>();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // remember the nav's natural height so its slot keeps that space once it pins
+  useEffect(() => {
+    const measure = () => {
+      if (navRef.current && window.scrollY <= 24) setNavHeight(navRef.current.offsetHeight);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
   }, []);
 
   return (
@@ -91,14 +103,12 @@ export default function Hero() {
       <div className="hero-overlay" />
       <ShootingStars />
 
-      <nav className="hero-nav">
-        <NavLinks />
-      </nav>
-
-      {/* slides in from the top once the page is scrolled */}
-      <nav className={'sticky-nav' + (scrolled ? ' is-visible' : '')}>
-        <NavLinks />
-      </nav>
+      {/* the slot holds the nav's space in the hero while the nav itself is pinned */}
+      <div className="hero-nav-slot" style={scrolled && navHeight ? { height: navHeight } : undefined}>
+        <nav ref={navRef} className={'hero-nav' + (scrolled ? ' is-stuck' : '')}>
+          <NavLinks />
+        </nav>
+      </div>
 
       <PlaneFlock />
       <QuoteBanner />

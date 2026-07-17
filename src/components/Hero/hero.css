@@ -75,6 +75,7 @@
   justify-content: center;
   gap: clamp(8px, 1.5vw, 14px);
   padding: clamp(16px, 4vw, 32px) 24px 0;
+  transition: padding 0.5s cubic-bezier(0.22, 1, 0.36, 1), background 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .pill-group {
   display: flex;
@@ -95,7 +96,7 @@
   padding: 10px 22px;
   border-radius: 999px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, font-size 0.5s cubic-bezier(0.22, 1, 0.36, 1), padding 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .pill:hover { background: rgba(255, 255, 255, 0.8); }
 
@@ -113,43 +114,56 @@
   -webkit-backdrop-filter: blur(6px);
   color: #1a2233;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, color 0.2s, width 0.5s cubic-bezier(0.22, 1, 0.36, 1), height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .theme-toggle:hover { background: rgba(255, 255, 255, 0.8); }
+.theme-toggle svg { transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1), height 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
 
-.sticky-nav {
+/* pinned state: the same nav fixes to the viewport top and shrinks to 75% */
+@keyframes navSettle {
+  from { transform: translateY(-14px); opacity: 0.4; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+.hero-nav.is-stuck {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(8px, 1.5vw, 14px);
-  padding: 12px 24px;
+  padding: 8px 24px;
+  /* eases over the jump from in-flow to fixed positioning */
+  animation: navSettle 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   /* light drop shadow separates the bar from the page below */
   box-shadow: 0 2px 14px rgba(26, 34, 51, 0.12);
-  transform: translateY(-110%);
-  transition: transform 0.3s ease;
 }
-.sticky-nav.is-visible { transform: translateY(0); }
 /* pills need a darker tint to stay visible on the light bar */
-.sticky-nav .pill { background: rgba(26, 34, 51, 0.06); }
-.sticky-nav .pill:hover { background: rgba(26, 34, 51, 0.12); }
-.sticky-nav .theme-toggle { background: rgba(26, 34, 51, 0.06); }
-.sticky-nav .theme-toggle:hover { background: rgba(26, 34, 51, 0.12); }
-html.dark .sticky-nav {
+.hero-nav.is-stuck .pill {
+  background: rgba(26, 34, 51, 0.06);
+  font-size: 10px;
+  padding: 7px 16px;
+}
+.hero-nav.is-stuck .pill:hover { background: rgba(26, 34, 51, 0.12); }
+.hero-nav.is-stuck .theme-toggle {
+  background: rgba(26, 34, 51, 0.06);
+  width: 30px;
+  height: 30px;
+}
+.hero-nav.is-stuck .theme-toggle:hover { background: rgba(26, 34, 51, 0.12); }
+.hero-nav.is-stuck .theme-toggle svg {
+  width: 14px;
+  height: 14px;
+}
+html.dark .hero-nav.is-stuck {
   background: rgba(8, 11, 20, 0.85);
   box-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
 }
-html.dark .sticky-nav .pill { background: rgba(255, 255, 255, 0.12); }
-html.dark .sticky-nav .pill:hover { background: rgba(255, 255, 255, 0.22); }
-html.dark .sticky-nav .theme-toggle { background: rgba(255, 255, 255, 0.12); }
-html.dark .sticky-nav .theme-toggle:hover { background: rgba(255, 255, 255, 0.22); }
+html.dark .hero-nav.is-stuck .pill { background: rgba(255, 255, 255, 0.12); }
+html.dark .hero-nav.is-stuck .pill:hover { background: rgba(255, 255, 255, 0.22); }
+html.dark .hero-nav.is-stuck .theme-toggle { background: rgba(255, 255, 255, 0.12); }
+html.dark .hero-nav.is-stuck .theme-toggle:hover { background: rgba(255, 255, 255, 0.22); }
 
 
 .banner {
