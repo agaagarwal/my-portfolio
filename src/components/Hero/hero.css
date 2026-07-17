@@ -117,6 +117,40 @@
 }
 .theme-toggle:hover { background: rgba(255, 255, 255, 0.8); }
 
+.sticky-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 1.5vw, 14px);
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  /* light drop shadow separates the bar from the page below */
+  box-shadow: 0 2px 14px rgba(26, 34, 51, 0.12);
+  transform: translateY(-110%);
+  transition: transform 0.3s ease;
+}
+.sticky-nav.is-visible { transform: translateY(0); }
+/* pills need a darker tint to stay visible on the light bar */
+.sticky-nav .pill { background: rgba(26, 34, 51, 0.06); }
+.sticky-nav .pill:hover { background: rgba(26, 34, 51, 0.12); }
+.sticky-nav .theme-toggle { background: rgba(26, 34, 51, 0.06); }
+.sticky-nav .theme-toggle:hover { background: rgba(26, 34, 51, 0.12); }
+html.dark .sticky-nav {
+  background: rgba(8, 11, 20, 0.85);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
+}
+html.dark .sticky-nav .pill { background: rgba(255, 255, 255, 0.12); }
+html.dark .sticky-nav .pill:hover { background: rgba(255, 255, 255, 0.22); }
+html.dark .sticky-nav .theme-toggle { background: rgba(255, 255, 255, 0.12); }
+html.dark .sticky-nav .theme-toggle:hover { background: rgba(255, 255, 255, 0.22); }
+
 
 .banner {
   position: absolute;
