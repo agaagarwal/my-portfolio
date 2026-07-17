@@ -86,38 +86,54 @@
 }
 .pill {
   text-decoration: none;
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
   color: #1a2233;
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.04em;
-  padding: 10px 22px;
-  border-radius: 999px;
+  padding: 10px 8px;
   cursor: pointer;
-  transition: background 0.2s, font-size 0.5s cubic-bezier(0.22, 1, 0.36, 1), padding 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: color 0.2s, font-size 0.5s cubic-bezier(0.22, 1, 0.36, 1), padding 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.pill:hover { background: rgba(255, 255, 255, 0.8); }
+.pill:hover { color: rgba(26, 34, 51, 0.6); }
 
 .theme-toggle {
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
+  gap: 7px;
   border: none;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: none;
   color: #1a2233;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 10px 8px;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s, width 0.5s cubic-bezier(0.22, 1, 0.36, 1), height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: color 0.2s, font-size 0.5s cubic-bezier(0.22, 1, 0.36, 1), padding 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.theme-toggle:hover { background: rgba(255, 255, 255, 0.8); }
+.theme-toggle:hover { color: rgba(26, 34, 51, 0.6); }
 .theme-toggle svg { transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1), height 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* click: icon glides right across the label and back; the theme (and with it
+   the icon + label) swaps at the far point of the trip */
+@keyframes themeIconTrip {
+  0%   { transform: translateX(0) rotate(0deg); }
+  50%  { transform: translateX(46px) rotate(180deg); }
+  100% { transform: translateX(0) rotate(360deg); }
+}
+@keyframes themeLabelBlink {
+  0%   { opacity: 1; }
+  45%  { opacity: 0; }
+  55%  { opacity: 0; }
+  100% { opacity: 1; }
+}
+.theme-toggle.is-switching svg {
+  animation: themeIconTrip 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.theme-toggle.is-switching .theme-label {
+  animation: themeLabelBlink 0.5s ease;
+}
 
 /* pinned state: the same nav fixes to the viewport top and shrinks to 75% */
 @keyframes navSettle {
@@ -133,37 +149,28 @@
   padding: 8px 24px;
   /* eases over the jump from in-flow to fixed positioning */
   animation: navSettle 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   /* light drop shadow separates the bar from the page below */
   box-shadow: 0 2px 14px rgba(26, 34, 51, 0.12);
 }
-/* pills need a darker tint to stay visible on the light bar */
 .hero-nav.is-stuck .pill {
-  background: rgba(26, 34, 51, 0.06);
   font-size: 10px;
-  padding: 7px 16px;
+  padding: 7px 6px;
 }
-.hero-nav.is-stuck .pill:hover { background: rgba(26, 34, 51, 0.12); }
 .hero-nav.is-stuck .theme-toggle {
-  background: rgba(26, 34, 51, 0.06);
-  width: 30px;
-  height: 30px;
+  font-size: 10px;
+  padding: 7px 6px;
 }
-.hero-nav.is-stuck .theme-toggle:hover { background: rgba(26, 34, 51, 0.12); }
 .hero-nav.is-stuck .theme-toggle svg {
   width: 14px;
   height: 14px;
 }
 html.dark .hero-nav.is-stuck {
-  background: rgba(8, 11, 20, 0.85);
+  background: rgba(8, 11, 20, 0.25);
   box-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
 }
-html.dark .hero-nav.is-stuck .pill { background: rgba(255, 255, 255, 0.12); }
-html.dark .hero-nav.is-stuck .pill:hover { background: rgba(255, 255, 255, 0.22); }
-html.dark .hero-nav.is-stuck .theme-toggle { background: rgba(255, 255, 255, 0.12); }
-html.dark .hero-nav.is-stuck .theme-toggle:hover { background: rgba(255, 255, 255, 0.22); }
 
 
 .banner {
@@ -221,19 +228,20 @@ html.dark .hero-nav.is-stuck .theme-toggle:hover { background: rgba(255, 255, 25
   margin: 0 auto;
   top: 272px;
 }
+/* spans the full viewport so all five headings fit on one line on wide
+   screens; on narrow screens they wrap and center instead of scrolling */
 .headings-scroll {
-  width: 100%;
-  overflow-x: auto;
-  scrollbar-width: none;
+  width: 100vw;
+  overflow: visible;
 }
-.headings-scroll::-webkit-scrollbar { display: none; }
 .headings {
   display: flex;
   gap: clamp(8px, 2.5vw, 34px);
-  flex-wrap: nowrap;
-  width: max-content;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 24px;
 }
 .heading {
   appearance: none;
@@ -369,10 +377,10 @@ html.dark .shooting-stars { opacity: 1; }
   100% { transform: rotate(25deg) translateX(48vw); opacity: 0; }
 }
 
-html.dark .pill { background: rgba(255, 255, 255, 0.12); color: #eef1f8; }
-html.dark .pill:hover { background: rgba(255, 255, 255, 0.22); }
-html.dark .theme-toggle { background: rgba(255, 255, 255, 0.12); color: #eef1f8; }
-html.dark .theme-toggle:hover { background: rgba(255, 255, 255, 0.22); }
+html.dark .pill { color: #eef1f8; }
+html.dark .pill:hover { color: rgba(238, 241, 248, 0.65); }
+html.dark .theme-toggle { color: #eef1f8; }
+html.dark .theme-toggle:hover { color: rgba(238, 241, 248, 0.65); }
 html.dark .heading { color: rgba(238, 241, 248, 0.55); }
 html.dark .heading:hover { color: #eef1f8; }
 html.dark .heading.is-active { color: #eef1f8; }

@@ -13,6 +13,15 @@ function scrollToProjects() {
 /* Shared by the in-hero nav and the sticky bar so both stay in sync. */
 function NavLinks() {
   const { theme, toggleTheme } = useTheme();
+  const [switching, setSwitching] = useState(false);
+
+  // icon glides right over the label, the theme flips at the far point, and
+  // the new icon glides back — so the swap happens mid-flight (see hero.css)
+  function handleThemeClick() {
+    if (switching) return;
+    setSwitching(true);
+    setTimeout(toggleTheme, 250);
+  }
 
   return (
     <>
@@ -38,8 +47,9 @@ function NavLinks() {
         </a>
       </div>
       <button
-        className="theme-toggle"
-        onClick={toggleTheme}
+        className={'theme-toggle' + (switching ? ' is-switching' : '')}
+        onClick={handleThemeClick}
+        onAnimationEnd={() => setSwitching(false)}
         aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
       >
         {theme === 'dark' ? (
@@ -59,6 +69,7 @@ function NavLinks() {
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
           </svg>
         )}
+        <span className="theme-label">{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
       </button>
     </>
   );
