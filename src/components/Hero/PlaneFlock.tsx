@@ -15,8 +15,9 @@ const FLOCK = [
 export default function PlaneFlock() {
   // Styles are fully inline: React 18 passes `className` through as an attribute
   // named "className" on custom elements, so a CSS class would never match here.
+  // The wrapper div fades the whole flock out in dark mode (see hero.css).
   return (
-    <>
+    <div className="plane-flock">
       {FLOCK.map((p, i) => (
         <dotlottie-player
           key={i}
@@ -37,6 +38,6 @@ export default function PlaneFlock() {
           }}
         />
       ))}
-    </>
+    </div>
   );
 }

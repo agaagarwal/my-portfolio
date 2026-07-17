@@ -52,3 +52,8 @@
   color: #1a2233;
   text-decoration: none;
 }
+
+html.dark .footer-tagline { color: rgba(238, 241, 248, 0.4); }
+html.dark .footer-rule { background: rgba(238, 241, 248, 0.12); }
+html.dark .footer-contacts a { color: #eef1f8; }
+html.dark .footer-socials a { color: #eef1f8; border-color: rgba(238, 241, 248, 0.2); }

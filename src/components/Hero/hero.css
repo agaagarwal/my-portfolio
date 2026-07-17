@@ -40,13 +40,6 @@
   0%   { transform: translateX(0); }
   100% { transform: translateX(-182vw); }
 }
-@keyframes bannerWaveSeg {
-  0%   { transform: translateY(0); }
-  25%  { transform: translateY(-8px); }
-  50%  { transform: translateY(0); }
-  75%  { transform: translateY(8px); }
-  100% { transform: translateY(0); }
-}
 
 .hero {
   position: relative;
@@ -62,6 +55,11 @@
   height: 100%;
   object-fit: cover;
   object-position: center 30%;
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+.hero-bg.is-hidden {
+  opacity: 0;
 }
 .hero-overlay {
   position: absolute;
@@ -73,10 +71,17 @@
   position: relative;
   z-index: 5;
   display: flex;
+  align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
   gap: clamp(8px, 1.5vw, 14px);
   padding: clamp(16px, 4vw, 32px) 24px 0;
+}
+.pill-group {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(8px, 1.5vw, 14px);
 }
 .pill {
   text-decoration: none;
@@ -93,6 +98,24 @@
   transition: background 0.2s;
 }
 .pill:hover { background: rgba(255, 255, 255, 0.8); }
+
+.theme-toggle {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #1a2233;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.theme-toggle:hover { background: rgba(255, 255, 255, 0.8); }
 
 
 .banner {
@@ -118,21 +141,10 @@
   width: 85.606%;
   height: 100%;
   flex: 0 0 auto;
-  display: flex;
+}
+.banner-fabric svg {
+  display: block;
   overflow: visible;
-}
-.banner-seg {
-  flex: 1 1 0;
-  height: 100%;
-  overflow: hidden;
-  position: relative;
-  border-radius: 3px;
-  animation: bannerWaveSeg 2.4s ease-in-out infinite;
-}
-.banner-seg img {
-  position: absolute;
-  top: -6px;
-  height: calc(100% + 12px);
 }
 
 .cursive-word {
@@ -262,4 +274,62 @@
     gap: 48px;
     padding: 0 16px;
   }
+}
+
+.plane-flock {
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+html.dark .plane-flock { opacity: 0; }
+
+.shooting-stars {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+html.dark .shooting-stars { opacity: 1; }
+.shooting-star {
+  position: absolute;
+  width: 110px;
+  height: 2px;
+  border-radius: 999px;
+  /* bright head at the right end leads the streak */
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.95));
+  opacity: 0;
+  animation: shootStar 8s linear infinite;
+}
+.shooting-star::after {
+  content: '';
+  position: absolute;
+  right: -2px;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.6);
+}
+@keyframes shootStar {
+  0%   { transform: rotate(25deg) translateX(0); opacity: 0; }
+  3%   { opacity: 1; }
+  16%  { transform: rotate(25deg) translateX(48vw); opacity: 0; }
+  100% { transform: rotate(25deg) translateX(48vw); opacity: 0; }
+}
+
+html.dark .pill { background: rgba(255, 255, 255, 0.12); color: #eef1f8; }
+html.dark .pill:hover { background: rgba(255, 255, 255, 0.22); }
+html.dark .theme-toggle { background: rgba(255, 255, 255, 0.12); color: #eef1f8; }
+html.dark .theme-toggle:hover { background: rgba(255, 255, 255, 0.22); }
+html.dark .heading { color: rgba(238, 241, 248, 0.55); }
+html.dark .heading:hover { color: #eef1f8; }
+html.dark .heading.is-active { color: #eef1f8; }
+html.dark .hero-desc { color: #eef1f8; }
+html.dark .working-at { color: #eef1f8; }
+html.dark .hero-overlay {
+  background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0.35) 100%);
 }

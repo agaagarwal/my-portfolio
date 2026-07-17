@@ -52,3 +52,8 @@
   display: block;
   flex-shrink: 0;
 }
+
+html.dark .personal-space { background: #05070d; }
+html.dark .personal-title { color: #eef1f8; }
+html.dark .personal-para { color: rgba(238, 241, 248, 0.7); }
+html.dark .personal-lead { color: rgba(238, 241, 248, 0.6); }
