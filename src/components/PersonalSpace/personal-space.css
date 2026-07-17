@@ -40,6 +40,10 @@
   width: max-content;
   animation: snippetsScroll 90s linear infinite;
 }
+/* freeze the marquee while the pointer is over the photos; resumes where it left off */
+.snippets-viewport:hover .snippets-track {
+  animation-play-state: paused;
+}
 .snippets-set {
   display: flex;
   gap: 24px;
