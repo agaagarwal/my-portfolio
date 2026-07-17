@@ -170,24 +170,6 @@ export default function Hero() {
         )}
       </div>
 
-      <div
-        className="scroll-cue"
-        role="button"
-        tabIndex={0}
-        aria-label="Scroll to projects"
-        onClick={scrollToProjects}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            scrollToProjects();
-          }
-        }}
-      >
-        <div className="scroll-mouse">
-          <div className="scroll-wheel" />
-        </div>
-        <div className="scroll-label">Scroll to see work</div>
-      </div>
     </header>
   );
 }
