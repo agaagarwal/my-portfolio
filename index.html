@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Amulya Agarwal — Product Designer. Currently helping foodies spend less time on screens and more on dining at EazyDiner." />
     <title>Amulya Agarwal — Product Designer</title>
+    <script>
+      // apply the theme before first paint so the page never flashes light
+      if (localStorage.getItem('theme') !== 'light') {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
