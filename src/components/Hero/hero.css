@@ -74,7 +74,7 @@
   align-items: center;
   justify-content: center;
   gap: clamp(8px, 1.5vw, 14px);
-  padding: clamp(16px, 4vw, 32px) 24px 0;
+  padding: clamp(12px, 3vw, 24px) 24px 0;
   transition: padding 0.5s cubic-bezier(0.22, 1, 0.36, 1), background 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .pill-group {
