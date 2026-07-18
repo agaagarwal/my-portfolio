@@ -260,30 +260,19 @@ html.dark .hero-nav.is-stuck {
 }
 .hero-desc {
   margin: 0;
+  white-space: pre-line;
   font-size: clamp(24px, 4.5vw, 36px);
   line-height: 1.4;
   color: #1a2233;
   font-weight: 600;
   font-style: italic;
-  max-width: 661px;
+  max-width: 800px;
   animation: fadeInUp 0.7s ease-out both;
   animation-delay: 0.35s;
 }
-.working-at {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 14px;
-  font-size: clamp(16px, 2vw, 24px);
-  color: #1a2233;
-  font-weight: 400;
-  animation: fadeInUp 0.7s ease-out both;
-  animation-delay: 0.5s;
-}
-.working-at img {
-  display: block;
-  width: 170px;
+.hero-subline {
+  font-size: clamp(15px, 2vw, 21px);
+  font-weight: 500;
 }
 
 @media (max-width: 860px) {
@@ -338,6 +327,19 @@ html.dark .shooting-stars { opacity: 1; }
   100% { transform: rotate(25deg) translateX(48vw); opacity: 0; }
 }
 
+.photo-credit {
+  position: absolute;
+  right: 16px;
+  bottom: 12px;
+  z-index: 5;
+  font-size: 12px;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.92);
+  /* white + soft shadow stays legible on both the light and dark hero photos */
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+}
+
 html.dark .pill { color: #eef1f8; }
 html.dark .pill:hover { color: rgba(238, 241, 248, 0.65); }
 html.dark .theme-toggle { color: #eef1f8; }
@@ -346,7 +348,6 @@ html.dark .heading { color: rgba(238, 241, 248, 0.55); }
 html.dark .heading:hover { color: #eef1f8; }
 html.dark .heading.is-active { color: #eef1f8; }
 html.dark .hero-desc { color: #eef1f8; }
-html.dark .working-at { color: #eef1f8; }
 html.dark .hero-overlay {
   background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0.35) 100%);
 }
