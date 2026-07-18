@@ -6,8 +6,9 @@
     <meta name="description" content="Amulya Agarwal — Product Designer. Currently helping foodies spend less time on screens and more on dining at EazyDiner." />
     <title>Amulya Agarwal — Product Designer</title>
     <script>
-      // apply a saved dark preference before first paint so the page never flashes light
-      if (localStorage.getItem('theme') === 'dark') {
+      // apply the saved theme — or the browser's preference — before first paint so the page never flashes light
+      const stored = localStorage.getItem('theme');
+      if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         document.documentElement.classList.add('dark');
       }
     </script>
