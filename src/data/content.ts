@@ -11,7 +11,7 @@ export const HEADING_LABELS = [
 const SHARED_DESC = 'Designer who help foodies spend less time on screen and more on dining.';
 
 export const DESCRIPTIONS: string[] = [
-  SHARED_DESC,
+  'Designer who helps people spend less time figuring things out and more time doing what matters.',
   SHARED_DESC,
   "Good solutions don't ask for attention. They just work—quietly and effectively.",
   SHARED_DESC,
@@ -73,5 +73,5 @@ export const LINKS = {
   email: 'agarwal.amulya@gmail.com',
   phoneDisplay: '+91-9592228874',
   phoneHref: 'tel:+919592228874',
-  resume: 'resume.pdf',
+  resume: '/Amulya_Product_Designer_Resume.pdf',
 } as const;
