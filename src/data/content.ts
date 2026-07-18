@@ -6,16 +6,9 @@ export const HEADING_LABELS = [
   "WHAT I'M UPTO",
 ] as const;
 
-// Placeholder body copy — same across some sections for now per the design notes;
-// update per-section as content is written.
-const SHARED_DESC = 'Designer who help foodies spend less time on screen and more on dining.';
-
-/** Smaller trailing line shown under the "WHO I AM" description. */
-export const HERO_SUBLINE = 'serving 26 Lac users';
-
 export const DESCRIPTIONS: string[] = [
-  'Amulya Agarwal, Product Designer\ncurrently at EazyDiner',
-  SHARED_DESC,
+  'Amulya is a product designer\ncurrently working at EazyDiner',
+  'Making everyday technology simple so you can walk your dog.',
   "Good solutions don't ask for attention. They just work—quietly and effectively.",
   'Designs which helps people spend less time figuring things out and more in doing what matters.',
   'Taking deep breath, learning Ai and hunting for my next moonshot of a team',

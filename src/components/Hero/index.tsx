@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { HEADING_LABELS, DESCRIPTIONS, HERO_SUBLINE, LINKS } from '../../data/content';
+import { HEADING_LABELS, DESCRIPTIONS, LINKS } from '../../data/content';
 import { useTheme } from '../../context/ThemeContext';
 import PlaneFlock from './PlaneFlock';
 import QuoteBanner from './QuoteBanner';
@@ -160,7 +160,6 @@ export default function Hero() {
         {/* key remounts the block on tab switch so the fade-in replays */}
         <p className="hero-desc" key={activeIndex}>
           {DESCRIPTIONS[activeIndex]}
-          {activeIndex === 0 && <span className="hero-subline">{'\n' + HERO_SUBLINE}</span>}
         </p>
 
       </div>
