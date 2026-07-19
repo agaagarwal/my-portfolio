@@ -6,9 +6,8 @@
     <meta name="description" content="Amulya Agarwal — Product Designer. Currently helping foodies spend less time on screens and more on dining at EazyDiner." />
     <title>Amulya Agarwal — Product Designer</title>
     <script>
-      // apply the saved theme — or the browser's preference — before first paint so the page never flashes light
-      const stored = localStorage.getItem('theme');
-      if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      // light is the default; only a saved dark choice flips the class, applied before first paint to avoid a flash
+      if (localStorage.getItem('theme') === 'dark') {
         document.documentElement.classList.add('dark');
       }
     </script>

@@ -100,7 +100,6 @@
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 7px;
   border: none;
   background: none;
   color: #1a2233;
@@ -115,28 +114,13 @@
 .theme-toggle:hover { color: rgba(26, 34, 51, 0.6); }
 .theme-toggle svg { transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1), height 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
 
-/* click: icon glides right across the label and back; the theme (and with it
-   the icon + label) swaps at the far point of the trip */
-@keyframes themeIconTrip {
-  0%   { transform: translateX(0) rotate(0deg); }
-  50%  { transform: translateX(46px) rotate(180deg); }
-  100% { transform: translateX(0) rotate(360deg); }
-}
-@keyframes themeLabelBlink {
-  0%   { opacity: 1; }
-  45%  { opacity: 0; }
-  55%  { opacity: 0; }
-  100% { opacity: 1; }
-}
+/* click: the icon spins in place; the sun/moon swap happens mid-spin */
 @keyframes themeIconSpin {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
 }
 .theme-toggle.is-switching svg {
-  animation: themeIconTrip 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.theme-toggle.is-switching .theme-label {
-  animation: themeLabelBlink 0.5s ease;
+  animation: themeIconSpin 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* pinned state: the same nav fixes to the viewport top and shrinks to 75% */
@@ -385,11 +369,6 @@ html.dark .mobile-menu-close { color: #eef1f8; }
   .nav-burger {
     display: flex;
     order: -1;
-  }
-  .hero-nav .theme-label { display: none; }
-  /* no label to glide over — the icon just spins in place on switch */
-  .hero-nav .theme-toggle.is-switching svg {
-    animation: themeIconSpin 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .hero-nav.is-stuck { padding: 8px 16px; }
   .hero-nav.is-stuck .theme-toggle svg {

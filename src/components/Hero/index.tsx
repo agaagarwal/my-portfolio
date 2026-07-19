@@ -17,8 +17,8 @@ function NavLinks({ onNavigate, withTheme = true }: { onNavigate?: () => void; w
   const { theme, toggleTheme } = useTheme();
   const [switching, setSwitching] = useState(false);
 
-  // icon glides right over the label, the theme flips at the far point, and
-  // the new icon glides back — so the swap happens mid-flight (see hero.css)
+  // the icon spins in place and the theme flips mid-spin, so the sun/moon
+  // swap happens while the icon is turning (see hero.css)
   function handleThemeClick() {
     if (switching) return;
     setSwitching(true);
@@ -73,7 +73,6 @@ function NavLinks({ onNavigate, withTheme = true }: { onNavigate?: () => void; w
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
           </svg>
         )}
-        <span className="theme-label">{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
       </button>
       )}
     </>
