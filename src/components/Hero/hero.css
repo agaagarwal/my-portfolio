@@ -134,30 +134,47 @@
   left: 0;
   right: 0;
   z-index: 100;
-  padding: 8px 24px;
+  padding: 10px 16px;
+  justify-content: center;
+  gap: 12px;
   /* eases over the jump from in-flow to fixed positioning */
   animation: navSettle 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  /* light drop shadow separates the bar from the page below */
-  box-shadow: 0 2px 14px rgba(26, 34, 51, 0.12);
+}
+/* on scroll the links gather into a floating frosted capsule… */
+.hero-nav.is-stuck .pill-group {
+  flex: 0 1 auto;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 999px;
+  padding: 2px 16px;
+  box-shadow: 0 4px 18px rgba(26, 34, 51, 0.14);
 }
 .hero-nav.is-stuck .pill {
   font-size: 10px;
   padding: 7px 6px;
 }
+/* …and the theme icon rides beside it in its own circle, matched to the
+   capsule's height so the pair reads as one row */
 .hero-nav.is-stuck .theme-toggle {
-  font-size: 10px;
-  padding: 7px 6px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 4px 18px rgba(26, 34, 51, 0.14);
 }
 .hero-nav.is-stuck .theme-toggle svg {
   width: 14px;
   height: 14px;
 }
-html.dark .hero-nav.is-stuck {
-  background: rgba(8, 11, 20, 0.25);
-  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
+html.dark .hero-nav.is-stuck .pill-group,
+html.dark .hero-nav.is-stuck .theme-toggle {
+  background: rgba(8, 11, 20, 0.5);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55);
 }
 
 /* hamburger — swapped in below 640px, where the pill row can no longer fit */
@@ -338,14 +355,28 @@ html.dark .mobile-menu-close { color: #eef1f8; }
 .hero-desc {
   margin: 0;
   white-space: pre-line;
-  font-size: clamp(24px, 4.5vw, 36px);
-  line-height: 1.4;
-  color: #1a2233;
-  font-weight: 600;
-  font-style: italic;
-  max-width: 800px;
+  font-family: 'Colfax', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: clamp(19px, 2.8vw, 28px);
+  line-height: 1.6;
+  color: #000000;
+  font-weight: 500;
+  /* tracks the width of the five-heading row above, so lines never spread
+     past it (the row spans ~60vw and tops out near 800px) */
+  max-width: min(800px, 60vw);
   animation: fadeInUp 0.7s ease-out both;
   animation-delay: 0.35s;
+}
+/* highlighted phrases carry the Tempting calligraphy script at the same
+   size as Colfax, with line-height pinned so the swashes don't push the
+   lines apart */
+.hero-desc .accent {
+  font-family: 'Tempting', 'Seaweed Script', cursive;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1em;
+  line-height: 1;
+  /* the script's entry/exit swashes need a little air before Colfax resumes */
+  margin: 0 0.1em;
 }
 
 @media (max-width: 860px) {
@@ -370,10 +401,10 @@ html.dark .mobile-menu-close { color: #eef1f8; }
     display: flex;
     order: -1;
   }
-  .hero-nav.is-stuck { padding: 8px 16px; }
-  .hero-nav.is-stuck .theme-toggle svg {
-    width: 18px;
-    height: 18px;
+  /* keep burger left / theme circle right when pinned on phones */
+  .hero-nav.is-stuck {
+    justify-content: space-between;
+    padding: 8px 16px;
   }
 
   /* headings take turns instead of sharing the row: only the active one
@@ -391,7 +422,11 @@ html.dark .mobile-menu-close { color: #eef1f8; }
     top: clamp(150px, 24vh, 272px);
     gap: 32px;
   }
-  .hero-desc { font-size: 21px; }
+  /* single-heading layout: let the text use the phone's width again */
+  .hero-desc {
+    font-size: 19px;
+    max-width: 100%;
+  }
 
   /* the towed banner scales down with its aspect ratio and flies a bit higher */
   .banner {

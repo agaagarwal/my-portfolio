@@ -10,6 +10,13 @@ function scrollToProjects() {
   document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+/* odd-indexed pieces sat between *asterisks* in content.ts — they get the accent font */
+function renderAccents(text: string) {
+  return text
+    .split('*')
+    .map((part, i) => (i % 2 ? <em className="accent" key={i}>{part}</em> : part));
+}
+
 /* Shared by the in-hero nav, the sticky bar, and the mobile menu so all stay
    in sync. `onNavigate` lets the mobile menu close itself when a link is used;
    the menu drops the theme toggle (`withTheme`) since it stays in the top bar. */
@@ -207,7 +214,7 @@ export default function Hero() {
 
         {/* key remounts the block on tab switch so the fade-in replays */}
         <p className="hero-desc" key={activeIndex}>
-          {DESCRIPTIONS[activeIndex]}
+          {renderAccents(DESCRIPTIONS[activeIndex])}
         </p>
 
       </div>

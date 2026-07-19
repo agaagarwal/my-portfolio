@@ -1,5 +1,22 @@
 * { box-sizing: border-box; }
 
+/* self-hosted body face for the hero descriptions (medium cut only) */
+@font-face {
+  font-family: 'Colfax';
+  font-style: normal;
+  font-weight: 500;
+  src: url('/fonts/Colfax-Medium.otf') format('opentype');
+  font-display: swap;
+}
+/* self-hosted calligraphy script for the highlighted hero phrases */
+@font-face {
+  font-family: 'Tempting';
+  font-style: normal;
+  font-weight: normal;
+  src: url('/fonts/Tempting.otf') format('opentype');
+  font-display: swap;
+}
+
 html,
 body {
   margin: 0;
