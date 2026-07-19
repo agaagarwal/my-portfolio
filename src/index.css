@@ -6,6 +6,9 @@ body {
   padding: 0;
   font-family: 'Figtree', sans-serif;
   background: #0b1220;
+  /* full-bleed sections measure in 100vw, which overshoots by the scrollbar
+     width on some platforms — clip so that never becomes a sideways scroll */
+  overflow-x: hidden;
 }
 
 ::selection { background: rgba(255, 255, 255, 0.25); }

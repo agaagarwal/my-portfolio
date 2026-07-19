@@ -18,19 +18,26 @@ export default function ProjectCard({ project, index }: Props) {
         <p className="project-desc">{project.description}</p>
         <div className="project-divider" />
         <div className="project-meta-cols">
-          <div className="project-meta">
-            <div className="project-meta-label">{project.metaLeft.label}</div>
-            <div className="project-meta-value">{project.metaLeft.value}</div>
-          </div>
-          {project.metaRight && (
+          <div className="project-meta-group">
             <div className="project-meta">
-              <div className="project-meta-label">{project.metaRight.label}</div>
-              <div className="project-meta-value">
-                {project.metaRight.bold && <b>{project.metaRight.bold}</b>}
-                {project.metaRight.value}
-              </div>
+              <div className="project-meta-label">{project.metaLeft.label}</div>
+              <div className="project-meta-value">{project.metaLeft.value}</div>
             </div>
-          )}
+            {project.metaRight && (
+              <div className="project-meta">
+                <div className="project-meta-label">{project.metaRight.label}</div>
+                <div className="project-meta-value">
+                  {project.metaRight.bold && <b>{project.metaRight.bold}</b>}
+                  {project.metaRight.value}
+                </div>
+              </div>
+            )}
+          </div>
+          {/* compact duplicate of the cover that sits beside the meta text on
+              narrow screens; the full-size cover hides there instead */}
+          <div className="project-cover project-cover-inline">
+            <img src={project.cover} alt={project.coverAlt} loading="lazy" />
+          </div>
         </div>
         <a className="read-more" href={project.href} target="_blank" rel="noopener noreferrer">
           <span className="read-more-circle">

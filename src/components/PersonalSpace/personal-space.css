@@ -57,6 +57,25 @@
   flex-shrink: 0;
 }
 
+@media (max-width: 640px) {
+  .personal-title { font-size: 30px; }
+  .personal-para { font-size: 16px; }
+  .personal-lead {
+    font-size: 14px;
+    margin: 20px 0 8px;
+  }
+  .snippets-viewport { margin-top: 24px; }
+  /* smaller photos keep the marquee in proportion on phones */
+  .snippets-set img {
+    height: 170px;
+    border-radius: 12px;
+  }
+  .snippets-set {
+    gap: 14px;
+    padding-right: 14px;
+  }
+}
+
 html.dark .personal-space { background: #05070d; }
 html.dark .personal-title { color: #eef1f8; }
 html.dark .personal-para { color: rgba(238, 241, 248, 0.7); }

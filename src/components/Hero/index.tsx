@@ -10,8 +10,9 @@ function scrollToProjects() {
   document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-/* Shared by the in-hero nav and the sticky bar so both stay in sync. */
-function NavLinks() {
+/* Shared by the in-hero nav, the sticky bar, and the mobile menu so all stay
+   in sync. `onNavigate` lets the mobile menu close itself when a link is used. */
+function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
   const { theme, toggleTheme } = useTheme();
   const [switching, setSwitching] = useState(false);
 
@@ -31,18 +32,19 @@ function NavLinks() {
           href="#projects"
           onClick={(e) => {
             e.preventDefault();
+            onNavigate?.();
             scrollToProjects();
           }}
         >
           WORK
         </a>
-        <a className="pill" href={LINKS.resume} target="_blank" rel="noopener noreferrer">
+        <a className="pill" href={LINKS.resume} target="_blank" rel="noopener noreferrer" onClick={onNavigate}>
           RESUME
         </a>
-        <a className="pill" href={LINKS.linkedin} target="_blank" rel="noopener noreferrer">
+        <a className="pill" href={LINKS.linkedin} target="_blank" rel="noopener noreferrer" onClick={onNavigate}>
           LINKEDIN
         </a>
-        <a className="pill" href={LINKS.gmailCompose} target="_blank" rel="noopener noreferrer">
+        <a className="pill" href={LINKS.gmailCompose} target="_blank" rel="noopener noreferrer" onClick={onNavigate}>
           GMAIL
         </a>
       </div>
@@ -78,9 +80,27 @@ function NavLinks() {
 export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const { theme } = useTheme();
   const navRef = useRef<HTMLElement | null>(null);
   const [navHeight, setNavHeight] = useState<number>();
+
+  // lock the page while the mobile menu covers it; Escape and growing past
+  // the hamburger breakpoint both dismiss it
+  useEffect(() => {
+    if (!menuOpen) return;
+    document.body.style.overflow = 'hidden';
+    const close = () => setMenuOpen(false);
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close();
+    const onResize = () => window.innerWidth > 640 && close();
+    window.addEventListener('keydown', onKey);
+    window.addEventListener('resize', onResize);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('resize', onResize);
+    };
+  }, [menuOpen]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -129,8 +149,34 @@ export default function Hero() {
       <div className="hero-nav-slot" style={scrolled && navHeight ? { height: navHeight } : undefined}>
         <nav ref={navRef} className={'hero-nav' + (scrolled ? ' is-stuck' : '')}>
           <NavLinks />
+          <button
+            className="nav-burger"
+            aria-label="Open menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen(true)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
         </nav>
       </div>
+
+      {menuOpen && (
+        <div className="mobile-menu" role="dialog" aria-modal="true" onClick={() => setMenuOpen(false)}>
+          <button className="mobile-menu-close" aria-label="Close menu">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <line x1="6" y1="6" x2="18" y2="18" />
+              <line x1="18" y1="6" x2="6" y2="18" />
+            </svg>
+          </button>
+          {/* theme toggle shouldn't dismiss the menu, so clicks inside stop here;
+              links close it themselves via onNavigate */}
+          <div className="mobile-menu-links" onClick={(e) => e.stopPropagation()}>
+            <NavLinks onNavigate={() => setMenuOpen(false)} />
+          </div>
+        </div>
+      )}
 
       <PlaneFlock />
       <QuoteBanner />

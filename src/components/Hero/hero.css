@@ -44,6 +44,10 @@
   min-height: 700px;
   overflow: hidden;
 }
+/* small viewport units track the real visible area under mobile browser chrome */
+@supports (height: 100svh) {
+  .hero { height: 100svh; }
+}
 .hero-bg {
   position: absolute;
   inset: 0;
@@ -168,6 +172,101 @@ html.dark .hero-nav.is-stuck {
   box-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
 }
 
+/* hamburger — swapped in below 640px, where the pill row can no longer fit */
+.nav-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  padding: 11px;
+  border: none;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+.nav-burger span {
+  display: block;
+  height: 2px;
+  border-radius: 999px;
+  background: #1a2233;
+}
+html.dark .nav-burger { background: rgba(8, 11, 20, 0.35); }
+html.dark .nav-burger span { background: #eef1f8; }
+
+/* full-screen menu behind a heavy blur; links stack and stagger in */
+@keyframes menuFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 240;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  animation: menuFadeIn 0.25s ease-out both;
+}
+html.dark .mobile-menu { background: rgba(8, 11, 20, 0.6); }
+/* sits where the hamburger was, so open and close are the same tap target */
+.mobile-menu-close {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: none;
+  color: #1a2233;
+  cursor: pointer;
+}
+html.dark .mobile-menu-close { color: #eef1f8; }
+.mobile-menu-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mobile-menu .pill-group {
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.mobile-menu .pill {
+  font-size: 20px;
+  letter-spacing: 0.14em;
+  padding: 14px 12px;
+  animation: fadeInUp 0.45s ease-out both;
+}
+.mobile-menu .pill:nth-child(1) { animation-delay: 0.05s; }
+.mobile-menu .pill:nth-child(2) { animation-delay: 0.12s; }
+.mobile-menu .pill:nth-child(3) { animation-delay: 0.19s; }
+.mobile-menu .pill:nth-child(4) { animation-delay: 0.26s; }
+.mobile-menu .theme-toggle {
+  margin-top: 22px;
+  font-size: 14px;
+  animation: fadeInUp 0.45s ease-out both;
+  animation-delay: 0.33s;
+}
+.mobile-menu .theme-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+@media (min-width: 641px) {
+  .mobile-menu { display: none; }
+}
+
 
 .banner {
   position: absolute;
@@ -275,6 +374,45 @@ html.dark .hero-nav.is-stuck {
   .hero-content {
     gap: 48px;
     padding: 0 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero { min-height: 560px; }
+
+  /* the pill row hands over to the hamburger, parked top-left */
+  .hero-nav {
+    justify-content: flex-start;
+    padding-left: 16px;
+  }
+  .hero-nav .pill-group,
+  .hero-nav .theme-toggle {
+    display: none;
+  }
+  .nav-burger { display: flex; }
+  .hero-nav.is-stuck { padding: 8px 16px; }
+
+  /* headings take turns instead of sharing the row: only the active one
+     shows, fading in just ahead of its sub-text (which delays 0.35s) */
+  .headings { flex-direction: column; align-items: center; }
+  .heading { display: none; }
+  .heading.is-active {
+    display: block;
+    font-size: 15px;
+    letter-spacing: 0.16em;
+    animation: fadeInUp 0.5s ease-out both;
+  }
+
+  .hero-content {
+    top: clamp(150px, 24vh, 272px);
+    gap: 32px;
+  }
+  .hero-desc { font-size: 21px; }
+
+  /* the towed banner scales down with its aspect ratio and flies a bit higher */
+  .banner {
+    min-width: 560px;
+    top: 118px;
   }
 }
 
