@@ -128,6 +128,10 @@
   55%  { opacity: 0; }
   100% { opacity: 1; }
 }
+@keyframes themeIconSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
 .theme-toggle.is-switching svg {
   animation: themeIconTrip 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -253,16 +257,6 @@ html.dark .mobile-menu-close { color: #eef1f8; }
 .mobile-menu .pill:nth-child(2) { animation-delay: 0.12s; }
 .mobile-menu .pill:nth-child(3) { animation-delay: 0.19s; }
 .mobile-menu .pill:nth-child(4) { animation-delay: 0.26s; }
-.mobile-menu .theme-toggle {
-  margin-top: 22px;
-  font-size: 14px;
-  animation: fadeInUp 0.45s ease-out both;
-  animation-delay: 0.33s;
-}
-.mobile-menu .theme-toggle svg {
-  width: 20px;
-  height: 20px;
-}
 @media (min-width: 641px) {
   .mobile-menu { display: none; }
 }
@@ -380,17 +374,28 @@ html.dark .mobile-menu-close { color: #eef1f8; }
 @media (max-width: 640px) {
   .hero { min-height: 560px; }
 
-  /* the pill row hands over to the hamburger, parked top-left */
+  /* the pill row hands over to the hamburger (top-left); the theme switch
+     stays in the bar, top-right, as a bare icon */
   .hero-nav {
-    justify-content: flex-start;
+    justify-content: space-between;
     padding-left: 16px;
+    padding-right: 16px;
   }
-  .hero-nav .pill-group,
-  .hero-nav .theme-toggle {
-    display: none;
+  .hero-nav .pill-group { display: none; }
+  .nav-burger {
+    display: flex;
+    order: -1;
   }
-  .nav-burger { display: flex; }
+  .hero-nav .theme-label { display: none; }
+  /* no label to glide over — the icon just spins in place on switch */
+  .hero-nav .theme-toggle.is-switching svg {
+    animation: themeIconSpin 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
   .hero-nav.is-stuck { padding: 8px 16px; }
+  .hero-nav.is-stuck .theme-toggle svg {
+    width: 18px;
+    height: 18px;
+  }
 
   /* headings take turns instead of sharing the row: only the active one
      shows, fading in just ahead of its sub-text (which delays 0.35s) */

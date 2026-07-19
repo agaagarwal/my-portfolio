@@ -11,8 +11,9 @@ function scrollToProjects() {
 }
 
 /* Shared by the in-hero nav, the sticky bar, and the mobile menu so all stay
-   in sync. `onNavigate` lets the mobile menu close itself when a link is used. */
-function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
+   in sync. `onNavigate` lets the mobile menu close itself when a link is used;
+   the menu drops the theme toggle (`withTheme`) since it stays in the top bar. */
+function NavLinks({ onNavigate, withTheme = true }: { onNavigate?: () => void; withTheme?: boolean }) {
   const { theme, toggleTheme } = useTheme();
   const [switching, setSwitching] = useState(false);
 
@@ -48,6 +49,7 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
           GMAIL
         </a>
       </div>
+      {withTheme && (
       <button
         className={'theme-toggle' + (switching ? ' is-switching' : '')}
         onClick={handleThemeClick}
@@ -73,6 +75,7 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
         )}
         <span className="theme-label">{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
       </button>
+      )}
     </>
   );
 }
@@ -173,7 +176,7 @@ export default function Hero() {
           {/* theme toggle shouldn't dismiss the menu, so clicks inside stop here;
               links close it themselves via onNavigate */}
           <div className="mobile-menu-links" onClick={(e) => e.stopPropagation()}>
-            <NavLinks onNavigate={() => setMenuOpen(false)} />
+            <NavLinks onNavigate={() => setMenuOpen(false)} withTheme={false} />
           </div>
         </div>
       )}
