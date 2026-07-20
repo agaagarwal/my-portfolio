@@ -6,14 +6,14 @@ export const HEADING_LABELS = [
   "WHAT I'M UPTO",
 ] as const;
 
-/* Fragments wrapped in *asterisks* render in the Tempting script;
-   everything else renders in Colfax Medium (see .hero-desc in hero.css). */
+/* Fragments wrapped in *asterisks* render in Georgia italic;
+   everything else renders in Figtree (see .hero-desc in hero.css). */
 export const DESCRIPTIONS: string[] = [
   'Amulya is a *product designer*\ncurrently working at *eazydiner*',
   'Making everyday *technology simple* so you can walk your dog.',
   "Good solutions *don't ask* for *attention*. They just work—*quietly* and effectively.",
   'Designs which helps people *spend less time* figuring things out and *more in doing* what matters.',
-  'Taking deep breath, *learning ai* and hunting for my next moonshot of a team',
+  'Taking deep breath, *learning Ai* and hunting for my next moonshot of a team',
 ];
 
 export interface ProjectMeta {
