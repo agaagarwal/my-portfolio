@@ -9,11 +9,11 @@ export const HEADING_LABELS = [
 /* Fragments wrapped in *asterisks* render in Georgia italic;
    everything else renders in Figtree (see .hero-desc in hero.css). */
 export const DESCRIPTIONS: string[] = [
-  'Amulya is a *product designer*\ncurrently working at *eazydiner*',
+  'Amulya is a *Product Designer*\ncurrently working at *EazyDiner*',
   'Making everyday *technology simple* so you can walk your dog.',
-  "Good solutions *don't ask* for *attention*. They just work—*quietly* and effectively.",
-  'Designs which helps people *spend less time* figuring things out and *more in doing* what matters.',
-  'Taking deep breath, *learning Ai* and hunting for my next moonshot of a team',
+  "Good solutions *don't ask* *for* *attention*. They just work—*quietly* *and* *effectively*.",
+  'Designs which helps people *spend less time* *figuring things out* and *more in doing* *what matters*.',
+  'Taking deep breath, *learning Ai* and *hunting* for *my next* moonshot of a *team*',
 ];
 
 export interface ProjectMeta {
