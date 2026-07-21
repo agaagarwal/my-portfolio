@@ -5,6 +5,13 @@ interface Props {
   index: number;
 }
 
+function ProjectCoverMedia({ project }: { project: Project }) {
+  if (project.cover.endsWith('.lottie')) {
+    return <dotlottie-player src={project.cover} autoplay loop />;
+  }
+  return <img src={project.cover} alt={project.coverAlt} loading="lazy" />;
+}
+
 export default function ProjectCard({ project, index }: Props) {
   return (
     <article className="project-card">
@@ -36,7 +43,7 @@ export default function ProjectCard({ project, index }: Props) {
           {/* compact duplicate of the cover that sits beside the meta text on
               narrow screens; the full-size cover hides there instead */}
           <div className="project-cover project-cover-inline">
-            <img src={project.cover} alt={project.coverAlt} loading="lazy" />
+            <ProjectCoverMedia project={project} />
           </div>
         </div>
         <a className="read-more" href={project.href} target="_blank" rel="noopener noreferrer">
@@ -59,7 +66,7 @@ export default function ProjectCard({ project, index }: Props) {
         </a>
       </div>
       <div className="project-cover">
-        <img src={project.cover} alt={project.coverAlt} />
+        <ProjectCoverMedia project={project} />
       </div>
     </article>
   );

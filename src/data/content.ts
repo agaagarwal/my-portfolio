@@ -42,7 +42,7 @@ export const PROJECTS: Project[] = [
     metaLeft: { label: 'SCOPE', value: 'End-to-end referral & reactivation flows' },
     metaRight: { label: 'OUTCOME', bold: '4.6X', value: ' improvement in referral-to-customer conversion' },
     href: 'https://www.figma.com/proto/gLcA9RlxGcRA2tHiu22rOv/Project?node-id=108-413&viewport=-86%2C290%2C0.29&t=c1Gpuc4yn5vEdH5S-1&scaling=contain&content-scaling=fixed&starting-point-node-id=108%3A413&page-id=50%3A329',
-    cover: 'assets/project-1-cover.png',
+    cover: 'assets/project-1-hero.lottie',
     coverAlt: 'Referral & Reactivation Growth System app screen',
   },
   {
