@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+import type { DotLottiePlayer } from '@dotlottie/player-component';
 import type { Project } from '../../data/content';
 
 interface Props {
@@ -6,8 +8,17 @@ interface Props {
 }
 
 function ProjectCoverMedia({ project }: { project: Project }) {
+  const playerRef = useRef<DotLottiePlayer>(null);
+
+  useEffect(() => {
+    const player = playerRef.current;
+    if (!player) return;
+    player.playOnShow({ threshold: [0.4] });
+    return () => player.stopPlayOnShow();
+  }, []);
+
   if (project.cover.endsWith('.lottie')) {
-    return <dotlottie-player src={project.cover} autoplay loop />;
+    return <dotlottie-player ref={playerRef} src={project.cover} loop />;
   }
   return <img src={project.cover} alt={project.coverAlt} loading="lazy" />;
 }
@@ -47,21 +58,6 @@ export default function ProjectCard({ project, index }: Props) {
           </div>
         </div>
         <a className="read-more" href={project.href} target="_blank" rel="noopener noreferrer">
-          <span className="read-more-circle">
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="7" y1="17" x2="17" y2="7" />
-              <polyline points="7 7 17 7 17 17" />
-            </svg>
-          </span>
           <span className="read-more-label">READ MORE</span>
         </a>
       </div>
