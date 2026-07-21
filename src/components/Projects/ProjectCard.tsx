@@ -13,8 +13,15 @@ function ProjectCoverMedia({ project }: { project: Project }) {
   useEffect(() => {
     const player = playerRef.current;
     if (!player) return;
-    player.playOnShow({ threshold: [0.4] });
-    return () => player.stopPlayOnShow();
+    // Wait for the animation data to finish loading before arming
+    // playOnShow — calling it too early no-ops because the player's
+    // internal instance isn't constructed yet.
+    const armPlayOnShow = () => player.playOnShow({ threshold: [0.4] });
+    player.addEventListener('ready', armPlayOnShow);
+    return () => {
+      player.removeEventListener('ready', armPlayOnShow);
+      player.stopPlayOnShow();
+    };
   }, []);
 
   if (project.cover.endsWith('.lottie')) {
