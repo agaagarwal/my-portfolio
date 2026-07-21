@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { DotLottiePlayer } from '@dotlottie/player-component';
 import type { Project } from '../../data/content';
 
@@ -24,8 +24,25 @@ function ProjectCoverMedia({ project }: { project: Project }) {
 }
 
 export default function ProjectCard({ project, index }: Props) {
+  const cardRef = useRef<HTMLElement>(null);
+  const [isSpotlit, setIsSpotlit] = useState(false);
+
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+    // Card gets its shadow only while it's crossing the vertical center of
+    // the viewport, so the drop shadow reads as a scroll-driven spotlight
+    // rather than a static decoration.
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsSpotlit(entry.isIntersecting),
+      { rootMargin: '-45% 0px -45% 0px', threshold: 0 },
+    );
+    observer.observe(card);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <article className="project-card">
+    <article ref={cardRef} className={`project-card${isSpotlit ? ' project-card--spotlit' : ''}`}>
       <div className="project-info">
         <div className="project-meta-head">
           <span className="project-index">{String(index + 1).padStart(2, '0')}</span>

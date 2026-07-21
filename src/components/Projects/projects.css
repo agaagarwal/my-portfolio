@@ -23,13 +23,17 @@
   position: relative;
   background: #fff;
   border-radius: 32px;
-  box-shadow: 0 30px 60px -20px rgba(26, 34, 51, 0.18);
+  box-shadow: 0 30px 60px -20px rgba(26, 34, 51, 0);
+  transition: box-shadow 0.4s ease;
   padding: clamp(28px, 4vw, 56px);
   margin-bottom: 40px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(24px, 4vw, 56px);
   align-items: stretch;
+}
+.project-card--spotlit {
+  box-shadow: 0 30px 60px -20px rgba(26, 34, 51, 0.18);
 }
 .project-info {
   display: flex;
@@ -195,6 +199,9 @@ html.dark .projects { background: #05070d; }
 html.dark .projects-title { color: #eef1f8; }
 html.dark .project-card {
   background: #1E1E1E;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0);
+}
+html.dark .project-card--spotlit {
   box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.55);
 }
 html.dark .project-index,
