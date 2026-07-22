@@ -48,6 +48,35 @@ export default function ProjectCard({ project, index }: Props) {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const maxTilt = 8;
+
+    const handlePointerMove = (e: PointerEvent) => {
+      if (e.pointerType !== 'mouse') return;
+      const rect = card.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width - 0.5;
+      const py = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transition = 'transform 0.1s ease-out, box-shadow 0.4s ease';
+      card.style.transform = `perspective(900px) rotateX(${(-py * maxTilt).toFixed(2)}deg) rotateY(${(px * maxTilt).toFixed(2)}deg)`;
+    };
+    const handlePointerLeave = (e: PointerEvent) => {
+      if (e.pointerType !== 'mouse') return;
+      card.style.transition = 'transform 0.5s ease, box-shadow 0.4s ease';
+      card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+    };
+
+    card.addEventListener('pointermove', handlePointerMove);
+    card.addEventListener('pointerleave', handlePointerLeave);
+    return () => {
+      card.removeEventListener('pointermove', handlePointerMove);
+      card.removeEventListener('pointerleave', handlePointerLeave);
+    };
+  }, []);
+
   return (
     <article ref={cardRef} className={`project-card${isSpotlit ? ' project-card--spotlit' : ''}`}>
       <div className="project-info">
