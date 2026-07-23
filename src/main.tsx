@@ -6,6 +6,8 @@ import '@fontsource/figtree/500.css';
 import '@fontsource/figtree/600.css';
 import '@fontsource/figtree/700.css';
 import '@fontsource/seaweed-script/400.css';
+import '@fontsource/baskervville/400.css';
+import '@fontsource/baskervville/400-italic.css';
 import './index.css';
 import App from './App';
 

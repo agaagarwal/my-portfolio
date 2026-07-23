@@ -6,8 +6,8 @@ export const HEADING_LABELS = [
   "WHAT I'M UPTO",
 ] as const;
 
-/* Fragments wrapped in *asterisks* render in Georgia italic;
-   everything else renders in Figtree (see .hero-desc in hero.css). */
+/* Fragments wrapped in *asterisks* render in Baskervville italic;
+   everything else renders in Helvetica Neue (see .hero-desc in hero.css). */
 export const DESCRIPTIONS: string[] = [
   'Amulya is a *Product Designer*\ncurrently working at *EazyDiner*',
   'Making everyday *technology simple* so you can walk your dog.',
