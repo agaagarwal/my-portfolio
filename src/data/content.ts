@@ -13,7 +13,7 @@ export const DESCRIPTIONS: string[] = [
   'Making everyday *technology simple* so you can walk your dog.',
   "Good solutions *don't ask* *for* *attention*. They just work—*quietly* *and* *effectively*.",
   'Designs which helps people *spend less time* *figuring things out* and *more in doing* *what matters*.',
-  'Taking deep breath, *learning Ai* and *hunting* for *my next* moonshot of a *team*',
+  'Taking deep breath, *learning Ai* and *hunting for my next* moonshot of a *team*',
 ];
 
 export interface ProjectMeta {
