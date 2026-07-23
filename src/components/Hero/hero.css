@@ -75,14 +75,33 @@
   justify-content: center;
   gap: clamp(8px, 1.5vw, 14px);
   padding: clamp(12px, 3vw, 24px) 24px 0;
-  transition: padding 0.5s cubic-bezier(0.22, 1, 0.36, 1), background 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: padding 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .pill-group {
   display: flex;
-  flex: 1;
+  /* flex-grow alone (not the "flex" shorthand) so the width eases as the
+     grow factor eases — flex-basis: auto can't be interpolated, which was
+     making the shorthand transition snap instead of animate */
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
   flex-wrap: wrap;
   justify-content: center;
   gap: clamp(8px, 1.5vw, 14px);
+  background: rgba(255, 255, 255, 0);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  border-radius: 999px;
+  padding: 0;
+  box-shadow: 0 4px 18px rgba(26, 34, 51, 0);
+  transition:
+    flex-grow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    gap 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    backdrop-filter 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    border-radius 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    padding 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .pill {
   text-decoration: none;
@@ -100,16 +119,28 @@
   flex-shrink: 0;
   display: flex;
   align-items: center;
+  justify-content: center;
   border: none;
-  background: none;
+  background: rgba(255, 255, 255, 0);
   color: #1a2233;
   font-family: inherit;
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.04em;
   padding: 10px 8px;
+  border-radius: 999px;
+  box-shadow: 0 4px 18px rgba(26, 34, 51, 0);
   cursor: pointer;
-  transition: color 0.2s, font-size 0.5s cubic-bezier(0.22, 1, 0.36, 1), padding 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    color 0.2s,
+    font-size 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    padding 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    backdrop-filter 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    border-radius 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .theme-toggle:hover { color: rgba(26, 34, 51, 0.6); }
 .theme-toggle svg { transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1), height 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
@@ -123,11 +154,9 @@
   animation: themeIconSpin 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* pinned state: the same nav fixes to the viewport top and shrinks to 75% */
-@keyframes navSettle {
-  from { transform: translateY(-14px); opacity: 0.4; }
-  to   { transform: translateY(0); opacity: 1; }
-}
+/* pinned state: the same nav fixes to the viewport top; the links gather
+   into a frosted capsule and the theme icon gets its own matching circle
+   riding right beside it */
 .hero-nav.is-stuck {
   position: fixed;
   top: 0;
@@ -136,13 +165,10 @@
   z-index: 100;
   padding: 10px 16px;
   justify-content: center;
-  gap: 12px;
-  /* eases over the jump from in-flow to fixed positioning */
-  animation: navSettle 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
-/* on scroll the links gather into a floating frosted capsule… */
 .hero-nav.is-stuck .pill-group {
-  flex: 0 1 auto;
+  flex-grow: 0;
+  gap: 2px;
   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -160,7 +186,6 @@
   width: 30px;
   height: 30px;
   padding: 0;
-  justify-content: center;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(14px);
@@ -359,8 +384,7 @@ html.dark .mobile-menu-close { color: #eef1f8; }
   font-size: clamp(19px, 2.8vw, 28px);
   line-height: 1.6;
   color: #000000;
-  /* Figtree semi-bold */
-  font-weight: 600;
+  font-weight: 400;
   /* tracks the width of the five-heading row above, so lines never spread
      past it (the row spans ~60vw and tops out near 800px) */
   max-width: min(800px, 60vw);
